@@ -75,9 +75,14 @@
 %% use the ead command for the email address,
 %% and the form \ead[url] for the home page:
   
-%\title{MaREA4Galaxy: Metabolic Reaction Enrichment Analysis within Galaxy\tnoteref{label1}}
-%\title{\mareagalaxy: a Galaxy tool for metabolic reaction enrichment analysis and visualization of RNA-seq data}
-%\title{\textsf{MaREA4Galaxy}: metabolic reaction enrichment analysis and visualization of RNA-seq data within Galaxy}
+% \title{MaREA4Galaxy: Metabolic Reaction Enrichment Analysis within
+% Galaxy\tnoteref{label1}}
+  
+% \title{\mareagalaxy: a Galaxy tool for metabolic reaction enrichment
+% analysis and visualization of RNA-seq data}
+  
+\title{\textsf{MaREA4Galaxy}: metabolic reaction enrichment analysis
+  and visualization of RNA-seq data within Galaxy}
 
 
 %% use optional labels to link authors explicitly to addresses:
@@ -117,7 +122,7 @@
   \begin{abstract}
     %% Text of abstract
     
-    In this work, we present \mareagalaxy, a user-friendly tool that
+    In this work, we present \mareagalaxy{}, a user-friendly tool that
     allows a user to characterize and to graphically compare groups of
     samples with \red{different \sout{distinct metabolic regulations}
       transcriptional regulation of metabolism}, as estimated from
@@ -125,20 +130,21 @@
     the widely-used Galaxy platform for comparative genomics and
     bioinformatics analyses.
     %
-    \mareagalaxy~combines \red{ \sout{two} three} modules: the
-    \red{\RASTool} \sout{\mareaTool~(Metabolic Reaction Enrichment
-      Analysis)} module, which, for each reaction of a specified set,
-    computes a Reaction Activity Score (RAS) as a function of the
-    expression level of genes encoding for the \red{associated
-      \sout{reaction}} enzyme\red{; the \mareaTool~(Metabolic Reaction
-      Enrichment Analysis)} module that allows to
-    \textcolor{red}{highlight} significant differences \red{in
-      reaction activities} between specified groups of samples; the
-    \clusterTool~module which employs the RAS computed before as a
-    metric for unsupervised clustering of samples into distinct
-    metabolic subgroups. The \clusterTool~tool provides different
-    clustering techniques and implements standard methods to evaluate
-    the goodness of the results.
+    \mareagalaxy~combines \red{ \sout{two} three} modules\red{\sout{:
+        the}. The} \red{\RASTool{}} \sout{\mareaTool{} (Metabolic
+      Reaction Enrichment Analysis)} module, which, for each reaction
+    of a specified set, computes a Reaction Activity Score (RAS) as a
+    function of the expression level of genes encoding for the
+    \red{associated \sout{reaction}} enzyme\red{. The \mareaTool{}
+      (Metabolic Reaction Enrichment Analysis)} module that allows to
+    \red{highlight} significant differences \red{in reaction
+      activities} between specified groups of samples\red{\sout{;
+        the}. The} \clusterTool{} module which employs the RAS
+    computed before as a metric for unsupervised clustering of samples
+    into distinct metabolic subgroups\red{\sout{. The}; the}
+    \clusterTool{} tool provides different clustering techniques and
+    implements standard methods to evaluate the goodness of the
+    results.
 
     % integrates into typical genomics analysis within the web-based and
     % well-known platform Galaxy to enable rapid identification and
@@ -185,51 +191,62 @@
 
 \section{Introduction}
 
-In the last decades, life sciences have witnessed a change of focus
-from genotype towards phenotype. Accordingly, there has been an
+In the last \red{\sout{decades} recent years}, life sciences have
+witnessed a \red{\sout{change of} renewed} focus
+\red{\sout{from genotype towards phenotype} on phenotype level phenomena}. Accordingly, there has been an
 increasing attention towards cellular metabolism, which is regarded as
 the ultimate level of phenotype, reflecting the response of biological
-systems to regulatory and environmental changes.
+systems to regulatory and environmental changes. \red{\bfseries MA:
+  Vogliamo veramente mettere questa frase in apertura?}
 
 Alteration of metabolic processes plays a pivotal role in many
 pathologies, such as cancer, metabolic syndromes, neurodegenerative
 diseases \citep{hotamisligil2006inflammation,ward2012metabolic}, as
 well as in aging processes \citep{lopez2016metabolic}.
 
-Although quantification of metabolites is spreading
+Although quantification of metabolites \red{\sout{is spreading} has
+  become more and more feasible}
 \citep{Holmes2008}, the difficulty of \textcolor{red}{inferring}
-changes in metabolic pathways from metabolomics data
-\citep{damiani2016linking}, along with the easier access to
-good-quality transcriptomics data, are pushing the need to understand
-metabolic alterations from gene expression data.
+changes in metabolic pathways \red{\sout{from} based on} metabolomics data
+\citep{damiani2016linking},
+%
+\red{\sout{along with the easier access to
+    good-quality transcriptomics data,}}
+%
+\red{\sout{are} is} pushing the need to understand
+metabolic alterations \red{\sout{from} by leveraging} gene expression
+data.
 
-To this aim, computational strategies are being proposed to integrate
-\textit{-omics} data into metabolic networks
+To this \red{\sout{aim} end}, computational strategies are being
+proposed to integrate \textit{--omics} data into metabolic networks
 \citep{machado2014systematic,yizhak2015modeling,opdam2017systematic}. Within
-this context, we have recently introduced the pipeline \textsf{MaREA}
-(Metabolic Reaction Enrichment Analysis) \citep{marea}, which enables
-\textcolor{red}{to enlighten} the metabolic disregulations that
-distinguish sets of individuals, by projecting RNA-seq data onto
-metabolic networks, without requiring explicit metabolic
-measurements.
+this context, we have recently introduced the pipeline
+\mareaTool{} % \textsf{MaREA}
+(Metabolic Reaction Enrichment Analysis) \citep{marea}
+%
+\red{\sout{,}. \mareaTool{} \sout{which enables to enlighten}
+  characterizes} the metabolic disregulations that distinguish sets of
+individuals, by projecting RNA-seq data onto metabolic networks,
+without requiring explicit metabolic measurements.
 
-\textsf{MaREA} computes a Reaction Activity Score (RAS) for each
+\mareaTool{} computes a Reaction Activity Score (RAS) for each
 metabolic reaction and each sample/individual, based on the read count
 of the set of genes that encode the catalyzing enzyme(s).
 %
 The scores are first used as features for cluster analysis and then to
-visualize in a form understandable to life scientists the metabolic
-disregulations that distinguish the identified clusters.
+visualize \red{\sout{in a form understandable to life scientists}} the
+metabolic disregulations that distinguish the identified
+clusters\red{, in a form understandable to life scientists.}
 
-In \citep{marea}, we have demonstrated that \textsf{MaREA} can
+In \citep{marea}, we have demonstrated that \mareaTool{} can
 efficiently stratify cancer patients according to their metabolic
 activity, as proven by significantly different survival expectancy.
 %
-Moreover, \textsf{MaREA} proved to be able to readily capture
+Moreover, \mareaTool{} proved to be able to readily capture
 metabolic differences between two conditions, such as the properties
-that distinguish normal from tumor samples \citep{marea}.
+that distinguish normal from tumor samples. % \citep{marea}.
 
-The \textsf{MaREA} pipeline is highly versatile and can be applied to
+The \mareaTool{} pipeline is highly versatile and can be applied to
 virtually any study aiming at comparing the metabolism of samples in
 different conditions or experimental settings.
 
@@ -241,76 +258,82 @@ is not web-based and, therefore, it requires local resources; also,
 most life scientists are not familiar with the MATLAB environment.
 
 To overcome these limitations, we present here the freely available
-open source web-based tool \mareagalaxy\ which embeds the
-\textsf{MaREA} pipeline within the widely-used platform Galaxy
+open source web-based tool \mareagalaxy{} which embeds the
+\mareaTool{} pipeline within the widely-used platform Galaxy
 \citep{galaxy}.
 %
 \textcolor{red}{Galaxy is a user-friendly web-based workflow system
   that allows biomedical researchers to use computational biology
-  tools even without sophisticated skills in  computer science}
+  tools even without sophisticated \sout{skills in} computer science skills.}
 % Galaxy is a user-friendly web-based scientific workflow system that
 % has given biomedical researchers without sophisticated understanding
 % of computer science access to computational biology
-\citep{galaxy}.
+% \citep{galaxy}.
 
 \red{As compared to other user-friendly web-based metabolic network
   visualization tools, such as Escher \citep{king2015escher} or Fame
   \citep{boele2012fame}, which mainly focus on Flux Balance Analysis,
-  \mareagalaxy\ specifically enables metabolic reaction enrichment
+  \mareagalaxy{} specifically enables metabolic reaction enrichment
   analysis of gene expression data which may have been obtained
   directly within the Galaxy environment, for instance by using Galaxy
-  tools to produce read counts from raw RNA-seq data. \mareagalaxy\
+  tools to produce read counts from raw RNA-seq data. \mareagalaxy{}
   automatically recognizes most common gene nomenclature systems.
   %
   It also enables cluster analysis of samples based on reaction
   activities, as well as on any other features. The cluster analysis
   module implements new functionalities, as compared to the previously
-  released Matlab-based \textsf{MaREA} tool. New clustering algorithms
+  released MATLAB-based \mareaTool{} tool. New clustering algorithms
   have been included, as well as new instruments for the evaluation of
   clustering goodness and for the selection of the best technique.}
 
-\red{Moreover, \mareagalaxy\ inherits the benefits of Galaxy.  In
+\red{Moreover, \mareagalaxy{} inherits the benefits of Galaxy.  In
   particular, Galaxy allows to build multi-step computational
   analyses. It allows users to upload their own data, as well as to
-  interface with public databases, and enables researchers to do the
-  text manipulation required to properly format data for analysis
-  without requiring advanced programming skills.  Galaxy can be
-  downloaded, customized and installed either locally or on a
-  dedicated server, which is provided by many organizations and public
-  institutions. It also provides a comprehensive documentation.}
+  interface with public databases, and enables researchers to
+  \sout{do} perform the text manipulation required to properly format
+  data for analysis without requiring advanced programming skills.
+  Galaxy can be downloaded, customized and installed either locally or
+  on a dedicated server\sout{, which is provided by many organizations and
+  public institutions}. It also provides a comprehensive
+  documentation.}
 
-In order to illustrate the functionalities of \mareagalaxy, we show a
+In order to illustrate the functionalities of \mareagalaxy{}, we show a
 novel example on real data obtained from The Cancer Genome Atlas
 (TCGA) \citep{TCGA}. In particular, we perform an unsupervised cluster
 analysis of the gene expression of liver hepatocellular carcinoma
 tumors and we analyze the obtained clusters.
 
 
-\section{Implementation and availability}
+\section{Implementation and Availability}
 
-Following the recommendation by Galaxy's administrators, the back-end
-development of \mareagalaxy\ is based on Python and the front-end
+Following the recommendation by Galaxy's \red{\sout{administrators}
+  core developers' team}, the back-end
+development of \mareagalaxy{} is based on Python and the front-end
 development on XML. The interaction between front-end and back-end is
-based on the template engine Cheetah.
+based on the template engine Cheetah. \red{\bfseries MA: Mettere
+  almeno un riferimento a Cheetah.}
 %
-\mareagalaxy\ is mainly supported by the following libraries:  lxml,
-svglib, reportlab, pandas, scipy, python-libsbml, matplotlib, numpy
-and scikit-learn for clustering analysis.
+\mareagalaxy{} is \red{\sout{mainly supported by} biolt on top of} the
+following libraries: \texttt{lxml}, \texttt{svglib},
+\texttt{reportlab}, \texttt{pandas}, \texttt{scipy},
+\texttt{python-libsbml}, \texttt{matplotlib}, \texttt{numpy} and
+\texttt{scikit-learn} for clustering analysis.
 
-\mareagalaxy\ is stored in a versioned code archive in ToolShed, at:\\
-\url{https://toolshed.g2.bx.psu.edu/repos/bimib/marea}. 
-ToolShed allows the administrators of the hundreds of public and
-private Galaxy servers worldwide to easily install \mareagalaxy, as
-well as any other Galaxy utility, into their instances.
+\mareagalaxy{} is stored in a versioned code archive in ToolShed,
+\red{\bfseries MA: what is ToolShed?  It must be said.} at:\\
+\url{https://toolshed.g2.bx.psu.edu/repos/bimib/marea}.  ToolShed
+allows the administrators of the hundreds of public and private Galaxy
+servers worldwide to easily install \mareagalaxy, as well as any other
+Galaxy utility, into their instances.
 
-Once installed, \mareagalaxy\ appears in the Galaxy toolbar (left bar)
-under the name \textsf{MaREA} (see Figure \ref{fig:screenshot1} for an
-example).  A demo of \mareagalaxy\ is available at:
+Once installed, \mareagalaxy{} appears in the Galaxy toolbar (left bar)
+under the name \mareaTool{} (see Figure \ref{fig:screenshot1} for an
+example).  A demo of \mareagalaxy{} is available at:
 \url{http://bimib.disco.unimib.it:5555}.
 
 \begin{figure}[ht]
   \includegraphics[width=1\textwidth]{figs/screenshot1v2q.png}
-  \caption{\red{Screenshot of the \mareagalaxy\ interface. The module
+  \caption{\red{Screenshot of the \mareagalaxy{} interface. The module
       for RAS computation is illustrated. In particular, the built-in
       (default) HMRcore GPR rules are chosen. \sout{and the input
         format option `RNAseq dataset' have been selected, meaning
@@ -323,68 +346,74 @@ example).  A demo of \mareagalaxy\ is available at:
 \end{figure}
 
  
-\section{Functionalities and workflow}
+\section{Functionalities and Workflow}
 
-\mareagalaxy\ processes datasets stored in the history panel of
+\mareagalaxy{} processes datasets stored in the history panel of
 Galaxy. These datasets can be uploaded directly from the user's
 computer as structured text file by using, e.g., the Galaxy built-in
-tool Get Data, or obtained as output of intermediary analyses
+tool \texttt{Get Data}, or obtained as output of intermediary analyses
 performed with other tools.
  
-\mareagalaxy\ consists in \red{three \sout{two}} interconnected
-modules that may also work independently:
+\mareagalaxy{} consists in \red{three \sout{two}} interconnected
+modules that may also work independently.
 \begin{itemize}
-\item \red{the RASs computation module (briefly \RASTool~)};
-\item the metabolic reaction enrichment analysis module (briefly
-  \mareaTool~);
-\item the cluster analysis module (briefly \clusterTool).
+\item \red{The RASs computation module (briefly \RASTool{})}.
+\item The metabolic reaction enrichment analysis module
+  (\red{\sout{briefly}} \mareaTool{}).
+\item The cluster analysis module (\red{\sout{briefly}}
+  \clusterTool{}).
 \end{itemize}
 
-As better detailed in the following sections, \red{the \RASTool~
+As better detailed in the following sections, \red{the \RASTool{}
   module computes a RAS for each reaction in each sample. The
-  \sout{former} \mareaTool~} module allows to visualize on a metabolic
-map the metabolic reactions that are up- or down- regulated in
-different groups of samples \red{either defined \textit{a priori} or
-  identified by the \clusterTool~ module}. The \red{\clusterTool~
+  \sout{former} \mareaTool{}} module allows to visualize on a
+metabolic map the metabolic reactions that are up- or down- regulated
+in different groups of samples \red{either defined \textit{a priori}
+  or identified by the \clusterTool{} module}. The \red{\clusterTool{}
   \sout{latter}} module allows to identify sample subgroups (or
 clusters) that share similar metabolic properties, ideally by
-employing the RAS computed by the \red{\sout{former}} \RASTool~
+employing the RAS computed by the \red{\sout{former}} \RASTool{}
 module. Any other data can however be used as feature for unsupervised
-clustering of \textcolor{red}{samples}\sout{any kind of data}. The
-metabolic differences between the obtained clusters can, in turn, be
-analyzed with the \mareaTool~module.
+clustering of \red{samples}\sout{any kind of data}. The metabolic
+differences between the \red{\sout{obtained}} clusters \red{thus
+  obtained} can, in turn, be analyzed
+with the \mareaTool{} module.
 
 
 \subsection{Computation of Reaction Activity Scores}
 
-The \red{\sout{\mareaTool} \RASTool} tool selects and extracts
+The \red{\sout{\mareaTool{}} \RASTool{}} tool selects and extracts
 metabolic genes from a gene-expression dataset and, by solving
-Gene-Protein-Reaction (GPR) association rules, computes a Reaction
-Activity Score (RAS) for metabolic reactions of interest, as
-illustrated in \citep{marea}. The assumption is that enzyme isoforms
-contribute additively to the overall activity of a given reaction,
-whereas enzyme subunits limit its activity, by requiring all the
-components to be present for the reaction to be catalyzed.
+Gene-Protein-Reaction (GPR) association rules, \red{\bfseries MA: che
+  cosa sono queste ``GPR association rules''?} computes a
+\emph{Reaction Activity Score} (RAS) for metabolic reactions of
+interest, as illustrated in \citep{marea}. The assumption is that
+enzyme isoforms contribute additively to the overall activity of a
+given reaction, whereas enzyme subunits limit its activity, by
+requiring all the components to be present for the reaction to be
+catalyzed.
 %
-\red{\sout{\textsf{MaREA} then statistically compares the RAS of
+\red{\sout{\mareaTool{} then statistically compares the RAS of
     user-defined groups of samples}} \citep{marea}.
 
 
 \subsubsection{Input}
 
-\red{\sout{\mareagalaxy} The \RASTool\ tool
+\red{\sout{\mareagalaxy{}} The \RASTool{} tool
   (Fig.\ref{fig:screenshot1}) takes two \sout{three}} main inputs: 1)
 the list of GPRs; 2) the normalized read count of genes from a given
-cross-sectional RNA-seq dataset, as e.g. RPKM (Reads per Kilobase per
+cross-sectional RNA-seq dataset, as, e.g., RPKM (Reads per Kilobase per
 Million mapped reads) or TPM (Transcripts Per Kilobase
 Million). \red{\sout{and the eventual partition of samples/patients
     into distinct classes; 3) the graphical representation of the
     metabolic network.}}
 
-The first input reflects the chosen model of metabolic network and it
-is basically a dictionary (key-value data structure) which associates
-to each metabolic reaction a set of genes. Both reactions and genes
-must be defined by a unique identifier.
+The first input \red{\sout{reflects the chosen model of metabolic
+    network} is a representation of the metabolic model being studied}
+and it is basically a dictionary (key-value data structure), which
+associates \red{a set of genes} to each metabolic reaction
+\red{\sout{a set of genes}}. Both reactions and genes must be defined
+by a unique identifier.
 
 Boolean operators AND and OR define the relationship between genes and
 enzymes.
@@ -394,16 +423,17 @@ same enzyme, whereas the OR operator joins genes that encode for
 isoforms of the same enzyme.
 
 For the user's convenience, two human metabolic network models have
-been made directly available within the tool: HMRcore and Recon
-2.2. HMRcore corresponds to the set of GPR rules included in the core
-model of central carbon metabolism introduced in \citep{DiFilippo2016}
-and was used and curated in
+been made directly available within the tool: \textsf{HMRcore} and
+\textsf{Recon} 2.2. \textsf{HMRcore} corresponds to the set of GPR
+rules included in the core model of central carbon metabolism
+introduced in \citep{DiFilippo2016} and was used and curated in
 \citep{popFBA,graudenzi2018fbaca,damiani2018integration,marea},
-whereas Recon 2.2 \citep{swainston2016recon} is a genome-wide model
-encompassing virtually all reactions encoded in human metabolism.
+whereas \textsf{Recon} 2.2 \citep{swainston2016recon} is a genome-wide
+model encompassing virtually all reactions encoded in human
+metabolism.
 %
 However, the user can also opt to upload any custom metabolic network
-model.
+model \red{of her/his choice}.
 
 The ID of genes in the dataset must of course coincide with the ID
 used in the GPR rules. In case built-in GPRs are used, the following
@@ -413,7 +443,7 @@ HUGO symbol, Entrez ID.
 \red{In case of missing expression value, referred to as NaN (Not a
   Number), for a gene joined with an AND operator in a given GPR rule,
   the user can choose to solve the rule `A AND NaN' as A, or to
-  disregard it tout-court (i.e., treated as NaN)}
+  disregard it tout-court (i.e., treated as NaN).}
 %% \red{The user can choose whether in case of missing expression
 %% value, referred to as NaN (Not a Number), for a gene joined with an
 %% AND operator in a given GPR rule, the rule `A and NaN' must be
@@ -424,39 +454,39 @@ HUGO symbol, Entrez ID.
 \subsubsection{Output}
 
 \red{\sout{When no partition of samples into classes is specified,
-    the}} The tool simply returns as output a dataset reporting for
-each reaction in the chosen metabolic network the RAS computed for
-each sample. The RAS dataset is displayed in the History panel.
+    the}} The tool simply returns as output a dataset reporting
+\red{the RAS computed for each sample} for each reaction in the chosen
+metabolic network\red{. \sout{the RAS computed for each sample.}} The
+RAS dataset is displayed in the History panel.
 
 
-\subsection{Metabolic reaction enrichment analysis}
+\subsection{Metabolic Reaction Enrichment Analysis}
 
-\red{The \mareaTool\ tool statistically compares the RAS of
+\red{The \mareaTool{} tool statistically compares the RAS of
   user-defined groups of samples \citep{marea} and visualizes the
   identified differences.}
 
 \red{According to the user's preference the tool performs the
-  following comparisons:
+  following comparisons.
   \begin{itemize}
-  \item pairwise comparison of each group against all other groups;
-  \item comparison of each group against the rest of the samples;
-  \item comparison of each group against a user-defined control group.
+  \item Pairwise comparison of each group against all other groups.
+  \item Comparison of each group against the rest of the samples.
+  \item Comparison of each group against a user-defined control group.
   \end{itemize}}
 
 
 \subsubsection{Input}
 
-\red{\sout{\mareagalaxy} The \mareaTool~}tool
+\red{\sout{\mareagalaxy} The \mareaTool{}} tool
 (Fig.\label{fig:screenshot3}) takes \red{\sout{three main inputs: 1)
     the list of GPRs; 2) the normalized read count of genes from a
     given cross-sectional RNA-seq dataset, as e.g. RPKM (Reads per
     Kilobase per Million mapped reads) or TPM (Transcripts Per
     Kilobase Million) 3)} as main input the Reaction Activity Scores
-  of each sample, as computed by the \RASTool\ module and\red{, if
+  of each sample, as computed by the \RASTool{} module and\red{, if
     given,} the eventual partition of samples/patients into distinct
   classes. \sout{2); the graphical representation of the metabolic
     network.}}
- 
 
 The \red{\sout{second} input RAS dataset} can be organized in
 \red{\sout{three} two} alternative ways: \red{\sout{1) a unique
@@ -466,20 +496,20 @@ different set of samples/patients; \red{\sout{3)} 2)} a unique
 \red{\sout{RNA-seq} RAS} dataset for all samples/patients, plus a file
 that associates to each sample its affiliation to a set.
 
-
 \red{\sout{If a partition of samples into groups is specified,
     \mareaTool\ will compare the RAS of the groups.}} \red{\sout{If
     this is the case, as third} As} (optional) input, the user may
 also supply a graphical map of the metabolic network for an efficient
-visualization of the analysis outputs. If HMRcore model is chosen, the
-corresponding map is included within the tool and does have not to be
-uploaded. The metabolic map format is a svg file, reporting
-metabolites and products of each reaction linked with an arrow, whose
-ID matches the name of the reaction in the GPR file.
+visualization of the analysis outputs. If \red{the} \textsf{HMRcore}
+model is chosen, the corresponding map is included within the tool and
+does have not to be uploaded. The metabolic map format is a
+\texttt{svg} file, reporting metabolites and products of each reaction
+linked with an arrow, whose ID matches the name of the reaction in the
+GPR file.
 
 \begin{figure}[ht]
   \includegraphics[width=1\textwidth]{figs/screenshot3v2q.png}
-  \caption{Screenshot of the \mareagalaxy~ interface. The module for
+  \caption{Screenshot of the \mareagalaxy{} interface. The module for
     metabolic reaction enrichment analysis is illustrated. The input
     format option `RNAseq dataset of all samples + sample group
     specification' has been selected and the best clustering obtained
@@ -490,24 +520,26 @@ ID matches the name of the reaction in the GPR file.
 
 \red{\sout{When classes of samples are to be compared (as in the
     example in Figure \ref{fig:screenshot3}),}} The following advanced
-options can also be displayed and specified:
+options can also be displayed and specified.
 \begin{itemize}
-\item \red{\sout{ the user can choose whether in case of missing
+\item \red{\sout{ The user can choose whether in case of missing
       expression value, referred to as NaN (Not a Number), for a gene
       joined with an AND operator in a given GPR rule, the rule `A and
       NaN' must be solved as A. Otherwise, the GPR can be disregarded
-      tout-court (i.e., treated as NaN);}}
-\item the P-Value threshold, used for significance Kolmogorov-Smirnov
-  (KS) test, to verify whether the distributions of RASs over the
-  samples in two sets are significantly different;
+      tout-court (i.e., treated as NaN).}}
   
-\item threshold of the fold-change between the average RAS of two
+\item The P-Value threshold, used for significance Kolmogorov-Smirnov
+  (KS) test, to verify whether the distributions of RASs over the
+  samples in two sets are significantly different.
+  
+\item \red{The} threshold of the fold-change between the average RAS of two
   groups. Among the reactions that pass the KS test,  only fold-change
   values larger than the indicated threshold will be visualized on the
-  output metabolic map;
+  output metabolic map.
   
 \item optional outputs to be displayed in the History panel.
 \end{itemize}
+%
 The reader is referred to \citep{marea} for further theoretical
 aspects regarding the options above, whereas further technical details
 regarding formatting of input files are available in the help section
@@ -516,14 +548,14 @@ in Galaxy.
 
 \red{\subsubsection{Output}}
 
-\red{\mareaTool\ returns for each evaluated comparison, a collection
-  output in the History including the following items:}
+\red{\mareaTool{} returns for each evaluated comparison, a collection
+  output in the History including the following items.}
 
 \begin{itemize}
-\item a table reporting the fold-change between RASs and p-value of
-  the Kolmogorov-Smirnov test;
+\item A table reporting the fold-change between RASs and p-value of
+  the Kolmogorov-Smirnov test.
   
-\item the modified metabolic map (whenever supplied as
+\item The modified metabolic map (whenever supplied as
   input). Reactions up-regulated in the first class as compared to the
   second class  are marked in red, whereas reactions down-regulated in
   the former are marked in blue.
@@ -538,7 +570,7 @@ in Galaxy.
   the map can directly visualized within Galaxy. The user can also
   download the svg format of the map in order to apply changes;
   
-\item a log file, reporting possible warning or error
+\item A log file, reporting possible warning or error
   messages. Problems that prevent the pipeline's functioning, such as
   wrong format of files, gene ID type not supported or duplicated IDs,
   insufficient number of classes, as well as minor problems, such as
@@ -547,17 +579,17 @@ in Galaxy.
 \end{itemize}
 
 
-\subsection{Cluster analysis}
+\subsection{Cluster Analysis}
 
-The \clusterTool~tool has been conceived to cluster gene expression
+The \clusterTool{} tool has been conceived to cluster gene expression
 data, by using the RAS scores computed by \red{\sout{the tool
-    \mareaTool~} \mareagalaxy} as feature, given its efficacy in
+    \mareaTool{}} \mareagalaxy{}} as features, given its efficacy in
 stratifying cancer patients according to metabolic phenotype, as
 demonstrated in \citep{marea}. However, it is suited to cluster
 observations in any dataset in which rows indicate different
 variables/features and columns different observations.
 
-The \clusterTool~tool implements three of the main existing algorithms
+The \clusterTool{} tool implements three of the main existing algorithms
 to cluster data, namely: K-means, agglomerative clustering and DBSCAN
 (Density Based Spatial Clustering of Applications with
 Noise). Parameters and outputs of the tool are specific of each
@@ -569,36 +601,38 @@ feature of the tool is reported in Figure \ref{fig:screenshot2}.
 
 Given that K-means clustering requires the number of clusters $k$ to
 be set by the user, and that it is usually difficult to know the
-correct number of clusters \textit{a priori}, the \clusterTool~tool
+correct number of clusters \textit{a priori}, the \clusterTool{} tool
 allows to \red{evaluate} different values of $k$ and provides standard
 methods to estimate the goodness of each clustering in order to choose
 the best one. In particular, the elbow plot is generated, which allows
-to identify the “elbow” (the point of inflection on the curve) as the
-best candidate. The tool also generates a Silhouette plot for each
-$k$, which \red{\sout{estimates}reports} \red{\sout{for each element}}
-the cohesion and the separation indexes \red{\sout{(dissimilarity with
-    elements of other clusters)} of each element}, and computes the
+to identify the ``elbow'' (the point of inflection on the curve) as
+the best candidate. The tool also generates a \emph{silhouette} plot
+for each $k$, which \red{\sout{estimates} reports} \red{\sout{for each
+    element}} the cohesion and the separation indexes
+\red{\sout{(dissimilarity with elements of other clusters)} of each
+  element}\red{\sout{,}. The tool also \sout{and}} computes the
 silhouette score of each element, as well as the average silhouette of
-each $k$, to returning the $k$ with the best (highest) silhouette.
-The user can specify the minimum and maximum number of clusters to be
-evaluated and whether elbow and dendrogram plots must be generated.
+each $k$, \red{\sout{to}} returning the $k$ with the best (highest)
+silhouette.  The user can specify the minimum and maximum number of
+clusters to be evaluated and whether elbow and dendrogram plots must
+be generated.
 
 \begin{figure}[ht]
   \includegraphics[width=1\textwidth]{figs/screenshot2v2q.png}
-  \caption{screenshot of the \mareagalaxy\ interface. The module for
+  \caption{screenshot of the \mareagalaxy{} interface. The module for
     cluster analysis is illustrated. The RAS computed  by the
-    \mareaTool have been selected as input dataset and k-means has
+    \mareaTool have been selected as input dataset and K-means has
     been chosen as clustering method. 2 to 5 number of clusters will
     be tested. The elbow and silhouette plots will be generated.}
   \label{fig:screenshot2}
 \end{figure}
 
 
-\subsubsection{Agglomerative clustering}
+\subsubsection{Agglomerative Clustering}
 
 In the case of agglomerative clustering, the hierarchical output
 illustrated by the dendrogram facilitates the choice of the best
-clustering. The \clusterTool\ tool returns the set of clusters
+clustering. The \clusterTool{} tool returns the set of clusters
 obtained when cutting the dendrograms at different points.
 %
 The user can specify the minimum and maximum number of clusters to be
@@ -615,31 +649,37 @@ the other and the number of samples in a neighborhood for a point to
 be considered as a core point.
 
 
-\section{Application example}
+\section{Application Example}
 
-To illustrate \mareagalaxy\ functioning, we show here an example of application.
-We analyze a liver hepatocellular carcinoma RNA-seq dataset taken from
-the TCGA pancancer study, including 372 patients.
+To illustrate \mareagalaxy{} functioning, we show here an example of
+application.  We analyze a liver hepatocellular carcinoma RNA-seq
+dataset taken from the TCGA pancancer study, including 372 patients.
 %
 The original data is available at:
 \url{http://download.cbioportal.org/blca\_tcga.tar.gz}.
 %
-For reviewers' convenience, the dataset text file used for the
-analyses is also accessible at: \url{https://tinyurl.com/y3vcustx}.
+For \red{\sout{reviewers'} readers'} convenience, the dataset text
+file used for the analyses is also accessible at:
+\url{https://tinyurl.com/y3vcustx}.
 
-With no previous knowledge about the dataset, we aim at identifying
-cohorts of patients with different metabolic features.
+\red{\sout{With no previous knowledge about the dataset, we aim at
+    identifying cohorts of patients with different metabolic
+    features.}
+The goal of our example is to identify patients' cohorts with
+different metabolic features, without assuming any prior knowledge
+about the dataset.}
 %
-At this aim, we first upload our dataset in the History panel of
-Galaxy by means of the tool Get Data. Based on the HMRcore metabolic
-map, we then compute the RAS for each reaction in each patient, by
-means of \red{\sout{\mareagalaxy} \RASTool} tool, \red{\sout{by
-    selecting the option `RNAseq dataset' and selecting the dataset
-    from the history,}} see Figure \ref{fig:screenshot1}.
+\red{\sout{At this aim} To this end}, we first upload our dataset in
+the History panel of Galaxy by means of the \red{\sout{tool}}
+\texttt{Get Data} \red{tool}. Based on the \textsf{HMRcore} metabolic map, we
+then compute the RAS for each reaction in each patient, by means of
+\red{\sout{\mareagalaxy{}} \RASTool{}} tool, \red{\sout{by selecting the
+    option `RNAseq dataset' and selecting the dataset from the
+    history,}} see Figure \ref{fig:screenshot1}.
 
-We then switch to the \clusterTool\ tool and we select as input
+We then switch to the \clusterTool{} tool and we select as input
 dataset the RASs computed before. As a proof of principle, we choose
-k-means as clustering algorithm. We test a number of clusters $k$ from
+K-means as clustering algorithm. We test a number of clusters $k$ from
 2 to 5, and we indicate that we want to generate both elbow and
 silhouette plots for each tested $k$ (see a screenshot of the tool in
 Figure \ref{fig:screenshot2}).
@@ -648,36 +688,36 @@ The execution of the tool returns the clustering output for each value
 of $k$, and indicates as best clustering the one that maximizes the
 average silhouette coefficient.
 %
-In this case, the tools returns $k=2$ as the best clustering. The
+In this case, the tools returns $k = 2$ as the best clustering. The
 generated elbow and silhouette plots are reported in Figure
 \ref{fig:goodness}. It can be noticed that, although we have
 identified a good stratification of liver cancer patients, by
-qualitative observation of the elbow plot one may also choose $k=3$ as
-best clustering.
+qualitative observation of the elbow plot one may also choose $k = 3$
+as best clustering.
 
 \begin{figure}[ht]
   \includegraphics[width=1\textwidth]{figs/goodness.png}
-  \caption{Evaluation of clustering goodness by \mareagalaxy. Left
-    panel: elbow plot generated by the \clusterTool\ module, showing
-    an elbow for $k=2$. Right panel: silhouette plot generated by the
-    \clusterTool\ module for $k=2$, which has been returned as best
+  \caption{Evaluation of clustering goodness by \mareagalaxy{}. Left
+    panel: elbow plot generated by the \clusterTool{} module, showing
+    an elbow for $k = 2$. Right panel: silhouette plot generated by the
+    \clusterTool{} module for $k = 2$, which has been returned as best
     clustering according to the average silhouette score reported in
     the plot's title.}
   \label{fig:goodness}
 \end{figure}
 
-Finally, we can use the \mareaTool\ tool to promptly analyze the
-differences between the two patient cohorts. As shown in the
+Finally, we can use the \mareaTool{} tool to promptly analyze the
+differences between the two patients' cohorts. As shown in the
 screenshot in Figure \ref{fig:screenshot3}, we select this time the
-Input format option `RNAseq of all samples + sample group
+input format option `RNAseq of all samples + sample group
 specification' and we select the best clustering output obtained with
-\clusterTool\ as sample group specification file. We flag the option
+\clusterTool{} as sample group specification file. We flag the option
 of generating the pdf map and once we execute the tool we obtain the
 map reported in Figure \ref{fig:map}.
 
 \begin{figure}[ht]
   \includegraphics[width=1\textwidth]{figs/map.pdf}
-  \caption{Example of metabolic map generated by \mareagalaxy. In the
+  \caption{Example of metabolic map generated by \mareagalaxy{}. In the
     example, red arrows indicate reactions up-regulated, whereas blue
     arrows reactions down-regulated, in a subgroup of liver
     hepatocellular carcinoma patients. Black arrows refer to reactions
@@ -689,44 +729,47 @@ map reported in Figure \ref{fig:map}.
 \end{figure}
 
 Although a few reactions significantly differ between the two cluster,
-an eye that is familiar with this classical representation of central
-carbon metabolism can immediately notice (Figure \ref{fig:map}) the
-main metabolic features that distinguish the two patients cohorts.
+an \red{\sout{eye that} expert who} is familiar with this classical
+representation of central carbon metabolism can immediately notice
+(Figure \ref{fig:map}) the main metabolic features that distinguish
+the two patients cohorts.
 
-For example, in the first group the upper glycolytic pathway is
+For example, in the first group, the upper glycolytic pathway is
 up-regulated, whereas lower glycolysis, upstream of lactate
 production, is down-regulated. Lactate production from pyruvate is
-instead up-regulated, clearly indicating that pyruvate production
-derives from alternative routes, such as from the amino acid serine
-derived from glucose. The reactions that go from serine to pyruvate
-are indeed up-regulated. Other differences involve the utilization of
-glutamine and synthesis of amino acids derived from glutamine, such as
-asparagine and aspartate, as well as production of putrescine and urea
-in the urea cycle.
+instead up-regulated, \red{\sout{clearly}} indicating that pyruvate
+production derives from alternative routes, such as from the amino
+acid serine derived from glucose. The reactions that go from serine to
+pyruvate are indeed up-regulated. Other differences involve the
+utilization of glutamine and synthesis of amino acids derived from
+glutamine, such as asparagine and aspartate, as well as production of
+putrescine and urea in the urea cycle.
 
 
 \section{Conclusion}
 
 We have shown how with a few intuitive steps, without the need to set
-technical parameters, and in a very short time, \mareagalaxy\ enables
+technical parameters, and in a very short time, \mareagalaxy{} enables
 to uncover and characterize the differences in metabolic activity
 observed in different sample subgroups, as in the case of cancer
 patients.
 
 Being empowered by the well-known open and web-based platform Galaxy
 for performing accessible, reproducible, and transparent
-bioinformatics science, \mareagalaxy\ can support many life scientists
-with little knowledge of computational sciences in analyzing the
-metabolic variability underlying gene-expression datasets, either
-collected in their labs or available in public databases, paving the
-way to tackling metabolic plasticity and heterogeneity.
+bioinformatics science, \mareagalaxy{} can support many life
+scientists \red{\sout{with} who may have} little knowledge of
+computational \red{\sout{sciences} methods \sout{in} for} analyzing
+the metabolic variability underlying gene-expression datasets,
+\red{\sout{either} no matter whether} collected in their labs or
+available in public databases, \red{thus} paving the way to
+\red{\sout{tackling} tackle} metabolic plasticity and heterogeneity.
 
-As an example, we have shown a novel application of the \textsf{MaREA}
+As an example, we have shown a novel application of the \mareaTool{}
 pipeline to liver hepatocellular carcinoma and we have identified two
 groups with well distinct metabolic features. Investigating the
 implications of these differences is out of the scope of this
 work. However, it would be interesting to analyze whether the two
-groups of patients differ in other aspect, such as their prognosis,
+groups of patients differ in other aspects, such as their prognosis,
 (epi)genomic makeup or regulation of signaling pathways.
 
 A better understanding of the fundamental causes of metabolic
@@ -773,6 +816,9 @@ acknowledged. CD and GM received funding from FLAG-ERA grant ITFoC.
 \end{document}
 
 \endinput
-%%
+
+%% Keeping a useful ~ (tilde) here because of idiotic Italian
+%% keyboards.
+
 %% End of file `elsarticle-template-harv.tex'.
 %% End of file `mareaXgalaxy.tex'.
